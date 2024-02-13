@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private Vector2 foodPos;
     public GameObject foodPrefab;
     public GameObject wallPrefab;
+    public GameObject snakeHeadPrefab;
     private GameObject food;
     public Snake snake;
 
@@ -25,6 +26,12 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         CheckForCollisions();
+
+        if (snake == null)
+        {
+            GameObject smake = Instantiate(snakeHeadPrefab, new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+            snake = smake.GetComponent<Snake>();
+        }
     }
 
 
