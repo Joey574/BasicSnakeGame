@@ -6,21 +6,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Game data")]
+    [Header("Game Objects")]
+    public Snake snake;
+    private GameObject food;
     private Vector2 foodPos;
+
+    [Header("Prefabs")]
     public GameObject foodPrefab;
     public GameObject wallPrefab;
     public GameObject snakeHeadPrefab;
-    private GameObject food;
-    public Snake snake;
 
+    [Header("Game Data")]
     public Vector2 gameboardSize;
 
     void Awake()
     {
-        SpawnFood();
-
         InitializeGameBoard();
+        InitializeSnake();
+        SpawnFood();
     }
 
     void Update()
@@ -29,9 +32,14 @@ public class GameManager : MonoBehaviour
 
         if (snake == null)
         {
-            GameObject smake = Instantiate(snakeHeadPrefab, new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
-            snake = smake.GetComponent<Snake>();
+            InitializeSnake();
         }
+    }
+
+    private void InitializeSnake()
+    {
+        GameObject SnakeHead = Instantiate(snakeHeadPrefab, new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0), GameObject.Find("Snake").transform);
+        snake = SnakeHead.GetComponent<Snake>();
     }
 
 

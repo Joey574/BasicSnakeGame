@@ -2,24 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using System.Threading.Tasks;
-using static UnityEditor.PlayerSettings;
 
 public class Snake : MonoBehaviour
 {
+    // Inputs
+    public bool Up { set => direction.z = true; }
+    public bool Down { set => direction.w = true; }
+    public bool Left { set => direction.y = true; }
+    public bool Right { set => direction.x = true; }
+    public bool Reset { set => direction = false; }
+
     [Header("Snake info")]
     public List<Vector2> snakePos = new List<Vector2>();
-    public List<GameObject> snakeBody = new List<GameObject>();
+    private List<GameObject> snakeBody = new List<GameObject>();
+
+    private bool4 direction;
+    public bool increaseLength = false;
     public int length = 1;
 
-    public bool increaseLength = false;
-
+    [Header("Movement")]
     public float frequency = 0.5f;
     private float time;
 
+    [Header("Prefabs")]
     public GameObject snakeBodyPrefab;
-
-    private bool4 direction;
 
     void Awake()
     {
@@ -28,6 +34,8 @@ public class Snake : MonoBehaviour
 
         snakePos.Add(transform.position);
         snakeBody.Add(gameObject);
+
+        StartCoroutine(SetStartingLength());
     }
 
     void Update()
@@ -119,11 +127,24 @@ public class Snake : MonoBehaviour
         }
     }
 
+    private IEnumerator SetStartingLength()
+    {
+        increaseLength = true;
+
+        while (increaseLength == true)
+        {
+            yield return null;
+        }
+
+        increaseLength = true;
+    }
+
     private void OnDestroy()
     {
         foreach (GameObject snake in snakeBody)
         {
             Destroy(snake);
         }
+        Debug.Log("Snake Killed");
     }
 }
