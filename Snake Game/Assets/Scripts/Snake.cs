@@ -21,7 +21,7 @@ public class Snake : MonoBehaviour
     public int length = 1;
 
     [Header("Movement")]
-    public float frequency = 0.5f;
+    private float frequency;
     private float time;
 
     [Header("Prefabs")]
@@ -34,6 +34,8 @@ public class Snake : MonoBehaviour
 
         snakePos.Add(transform.position);
         snakeBody.Add(gameObject);
+
+        frequency = GameObject.Find("GameManager").GetComponent<GameManager>().frequency;
 
         StartCoroutine(SetStartingLength());
     }

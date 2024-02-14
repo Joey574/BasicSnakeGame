@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Data")]
     public Vector2 gameboardSize;
+    public float frequency;
 
     void Awake()
     {
@@ -41,7 +42,6 @@ public class GameManager : MonoBehaviour
         GameObject SnakeHead = Instantiate(snakeHeadPrefab, new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0), GameObject.Find("Snake").transform);
         snake = SnakeHead.GetComponent<Snake>();
     }
-
 
     private void SpawnFood()
     {
@@ -100,15 +100,25 @@ public class GameManager : MonoBehaviour
         }
 
         int x = (int) -gameboardSize.x - 1;
-        for (int i = (int) -gameboardSize.y - 1; i <= gameboardSize.x + 1; i++)
+        for (int i = (int) -gameboardSize.y - 1; i <= gameboardSize.y + 1; i++)
         {
             Instantiate(wallPrefab, new Vector3(x, i, 0), new Quaternion(0, 0, 0, 0), GameObject.Find("Wall").transform);
         }
 
         x = (int) gameboardSize.x + 1;
-        for (int i = (int)-gameboardSize.y - 1; i <= gameboardSize.x + 1; i++)
+        for (int i = (int)-gameboardSize.y - 1; i <= gameboardSize.y + 1; i++)
         {
             Instantiate(wallPrefab, new Vector3(x, i, 0), new Quaternion(0, 0, 0, 0), GameObject.Find("Wall").transform);
         }
+    }
+
+    private void OnGUI()
+    {
+        GUIStyle style = new GUIStyle(GUI.skin.label);
+        style.fontSize = 18;
+
+        int score = snake.length - 3;
+
+        GUI.Label(new Rect(5, 5, 80, 50), "Score: " + Mathf.Max(0, score).ToString(), style);
     }
 }

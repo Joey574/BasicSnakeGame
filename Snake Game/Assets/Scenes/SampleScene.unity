@@ -275,11 +275,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d20ef8c3a0013544cac6af92552c6c47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snake: {fileID: 0}
   foodPrefab: {fileID: 7524968373436907667, guid: c41c38abcf735fe49a188801c3dd40d8, type: 3}
   wallPrefab: {fileID: 8308661746804441918, guid: 4aee4c045c2dba8429a1f5000a96bd23, type: 3}
   snakeHeadPrefab: {fileID: 7942076269161489145, guid: a5f13f40a91c709448f28d719855b812, type: 3}
-  snake: {fileID: 0}
-  gameboardSize: {x: 10, y: 10}
+  gameboardSize: {x: 15, y: 10}
+  frequency: 0.1
 --- !u!4 &1117567459
 Transform:
   m_ObjectHideFlags: 0
